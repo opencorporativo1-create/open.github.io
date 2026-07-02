@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Descarga Open, la plataforma comunitaria de servicios y comercio local. Disponible en iOS y Android.">
+  <meta name="theme-color" content="#123b2f">
+  <title>Descargar Open | Plataforma comunitaria de servicios locales</title>
+  <style>
+    :root {
+      --ink: #10231c;
+      --muted: #52625b;
+      --line: rgba(16, 35, 28, 0.12);
+      --paper: #f4f1e8;
+      --card: rgba(255, 255, 255, 0.82);
+      --brand: #123b2f;
+      --brand-soft: #dce8e2;
+      --accent: #d96f32;
+      --accent-soft: #fff0e7;
+      --shadow: 0 24px 60px rgba(16, 35, 28, 0.16);
+      --radius: 24px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top left, rgba(217, 111, 50, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(18, 59, 47, 0.18), transparent 26%),
+        linear-gradient(180deg, #f7f3eb 0%, #f1ede4 44%, #ece8de 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(18px);
+      background: rgba(244, 241, 232, 0.84);
+      border-bottom: 1px solid rgba(16, 35, 28, 0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 76px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--brand) 0%, #1b6a54 100%);
+      color: #fff;
+      box-shadow: 0 12px 24px rgba(18, 59, 47, 0.22);
+      font-size: 1rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--ink);
+      background: rgba(18, 59, 47, 0.08);
+      outline: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.7rem, 5vw, 5rem);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+    }
+
+    .hero {
+      padding: 56px 0 32px;
+    }
+
+    .hero-center {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--brand-soft);
+      color: var(--brand);
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .lead {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 1.06rem;
+      max-width: 62ch;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .download-container {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 42px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .download-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 24px;
+      border: 2px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .download-card:hover {
+      border-color: var(--brand);
+      box-shadow: 0 32px 80px rgba(18, 59, 47, 0.2);
+      transform: translateY(-4px);
+    }
+
+    .download-card.detected {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, rgba(217, 111, 50, 0.08), rgba(217, 111, 50, 0.02));
+      box-shadow: 0 32px 80px rgba(217, 111, 50, 0.16);
+    }
+
+    .download-card.detected::before {
+      content: "✓ DETECTADO";
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .download-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.4rem;
+    }
+
+    .download-label {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .download-platform {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .download-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-weight: 700;
+      background: var(--brand);
+      color: #fff;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .download-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 30px rgba(18, 59, 47, 0.24);
+    }
+
+    .download-button:active {
+      transform: translateY(0);
+    }
+
+    .info-section {
+      margin-top: 56px;
+      padding: 42px;
+      border: 1px solid var(--line);
+      border-radius: calc(var(--radius) + 6px);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .info-section h2 {
+      font-size: 1.4rem;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+      margin-top: 24px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .info-item strong {
+      color: var(--brand);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .info-item span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .footer {
+      padding: 28px 0 52px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-top: 56px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .loading-state {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1rem;
+      padding: 24px;
+    }
+
+    @media (max-width: 720px) {
+      .download-container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .hero-center {
+        padding: 0 16px;
+      }
+
+      .info-section {
+        padding: 24px;
+      }
+
+      .download-card.detected::before {
+        top: 8px;
+        right: 8px;
+        font-size: 0.65rem;
+        padding: 3px 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/" aria-label="Open inicio">
+        <span class="brand-mark">O</span>
+        <span>Open</span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="/">Inicio</a>
+        <a href="/#plataforma">Plataforma</a>
+        <a href="/#cumplimiento">Cumplimiento</a>
+        <a href="https://opencorporativo1-create.github.io/open.github.io-politica-de-privacidad/">Privacidad</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div class="hero-center">
+        <div class="eyebrow">📱 Descargar Open</div>
+        <h1>Descarga la app de Open</h1>
+        <p class="lead">
+          Open conecta personas, comercios y servicios locales en una sola plataforma. 
+          Descubre aliados cerca de ti, realiza pedidos, solicita servicios y accede a soporte en tiempo real.
+        </p>
+
+        <div class="download-container">
+          <!-- Android Card -->
+          <div class="download-card" id="android-card" data-platform="android">
+            <div class="download-icon">
+              🤖
+            </div>
+            <div class="download-label">Android</div>
+            <div class="download-platform">Google Play Store</div>
+            <button class="download-button" onclick="downloadAndroid()">
+              Descargar
+            </button>
+          </div>
+
+          <!-- iOS Card -->
+          <div class="download-card" id="ios-card" data-platform="ios">
+            <div class="download-icon">
+              🍎
+            </div>
+            <div class="download-label">iOS</div>
+            <div class="download-platform">Apple App Store</div>
+            <button class="download-button" onclick="downloadiOS()">
+              Descargar
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <h2>Acerca de la app</h2>
+      <p style="color: var(--muted);">
+        Open es una plataforma completa diseñada para activar comercio y servicios en tu comunidad.
+      </p>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>🛍️ Catálogos y Pedidos</strong>
+          <span>Accede a productos de aliados locales y realiza pedidos desde tu dispositivo.</span>
+        </div>
+        <div class="info-item">
+          <strong>📍 Ubicación y Cercanía</strong>
+          <span>Descubre servicios y comercios cercanos en tu barrio con geolocalización integrada.</span>
+        </div>
+        <div class="info-item">
+          <strong>🔔 Notificaciones en Tiempo Real</strong>
+          <span>Recibe actualizaciones sobre pedidos, reservas y soporte al instante.</span>
+        </div>
+        <div class="info-item">
+          <strong>💬 Soporte y Mensajería</strong>
+          <span>Comunícate directamente con aliados y recibe atención operativa rápida.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-section" style="margin-top: 28px;">
+      <h2>Requisitos del dispositivo</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>🤖 Android</strong>
+          <span>Android 8.0 o superior. Compatible con tablets y dispositivos móviles.</span>
+        </div>
+        <div class="info-item">
+          <strong>🍎 iOS</strong>
+          <span>iOS 12.0 o superior. Compatible con iPhone, iPad e iPod touch.</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer shell">
+    <div class="footer-inner">
+      <span>Open · Plataforma comunitaria para comercio, servicios y operación local.</span>
+      <span><a href="https://opencorporativo1-create.github.io/open.github.io-politica-de-privacidad/">Política de privacidad</a> · <a href="mailto:opencorporativo1@gmail.com">opencorporativo1@gmail.com</a></span>
+    </div>
+  </footer>
+
+  <script>
+    // Detectar el sistema operativo del usuario
+    function detectOS() {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      
+      if (/android/i.test(ua)) {
+        return 'android';
+      } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
+        return 'ios';
+      }
+      return null;
+    }
+
+    // Funciones de descarga
+    function downloadAndroid() {
+      window.location.href = "https://play.google.com/store/apps/details?id=com.open1x.app";
+    }
+
+    function downloadiOS() {
+      window.location.href = "https://apps.apple.com/co/app/open-servicios-cerca-de-ti/id6769672984";
+    }
+
+    // Aplicar estilos al detectar el SO
+    document.addEventListener('DOMContentLoaded', function() {
+      const detectedOS = detectOS();
+      
+      if (detectedOS === 'android') {
+        document.getElementById('android-card').classList.add('detected');
+      } else if (detectedOS === 'ios') {
+        document.getElementById('ios-card').classList.add('detected');
+      }
+    });
+
+    // Permitir hacer clic en toda la tarjeta
+    document.querySelectorAll('.download-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const button = this.querySelector('.download-button');
+        button.click();
+      });
+    });
+  </script>
+</body>
+</html>
