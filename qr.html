@@ -37,49 +37,52 @@
       font-size: 16px;
       margin: 0;
     }
+    .fallback {
+      margin-top: 30px;
+      font-size: 14px;
+    }
+    .fallback a {
+      color: #123b2f;
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: 600;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="spinner"></div>
     <p>Redirigiendo a tu tienda...</p>
+    <div class="fallback">
+      <p>Si no se redirige automáticamente:</p>
+      <a href="https://play.google.com/store/apps/details?id=com.open1x.app" target="_blank">Android</a>
+      <a href="https://apps.apple.com/co/app/open-servicios-cerca-de-ti/id6769672984" target="_blank">iOS</a>
+    </div>
   </div>
 
   <script>
-    function detectOSAndRedirect() {
+    function detectAndRedirect() {
       const ua = navigator.userAgent.toLowerCase();
-      
-      console.log('User Agent:', ua);
-      
-      // Detectar Android
-      if (ua.indexOf('android') > -1) {
-        console.log('Android detectado, redirigiendo...');
-        window.location.replace("https://play.google.com/store/apps/details?id=com.open1x.app");
-        return;
+      const isIOS = /iphone|ipad|ipod|mac os|macos/.test(ua);
+      const isAndroid = /android/.test(ua);
+
+      if (isAndroid) {
+        // Para Android, intentar app link primero, luego Play Store
+        window.location.href = "https://play.google.com/store/apps/details?id=com.open1x.app";
+      } else if (isIOS) {
+        // Para iOS, intentar app link primero, luego App Store
+        window.location.href = "https://apps.apple.com/co/app/open-servicios-cerca-de-ti/id6769672984";
+      } else {
+        // Para otros dispositivos, mostrar página de opciones
+        window.location.href = "download.html";
       }
-      
-      // Detectar iOS con múltiples métodos
-      if (/iphone|ipad|ipod|mac os/.test(ua)) {
-        console.log('iOS detectado, redirigiendo...');
-        window.location.replace("https://apps.apple.com/co/app/open-servicios-cerca-de-ti/id6769672984");
-        return;
-      }
-      
-      // Si es desktop, ir a download.html
-      console.log('Desktop detectado, mostrando opciones...');
-      window.location.replace("download.html");
     }
 
-    // Ejecutar redirección inmediatamente, antes que cualquier otra cosa
-    if (document.readyState === 'loading') {
-      detectOSAndRedirect();
-    }
-    
-    // También ejecutar cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', detectOSAndRedirect);
-    
-    // Y con un timeout corto como fallback
-    setTimeout(detectOSAndRedirect, 50);
+    // Ejecutar inmediatamente
+    detectAndRedirect();
+
+    // Timeout como respaldo por si falla
+    setTimeout(detectAndRedirect, 200);
   </script>
 </body>
 </html>
