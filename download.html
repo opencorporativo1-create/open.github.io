@@ -228,6 +228,12 @@
       height: 100%;
     }
 
+    .download-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
     .download-label {
       font-weight: 700;
       font-size: 1.2rem;
@@ -413,27 +419,7 @@
           <!-- Android Card -->
           <div class="download-card" id="android-card" data-platform="android">
             <div class="download-icon">
-              <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Cabeza Android -->
-                <circle cx="50" cy="25" r="15" fill="#3DDC84" stroke="#123b2f" stroke-width="1.5"/>
-                <!-- Antenas izquierda -->
-                <line x1="38" y1="18" x2="28" y2="8" stroke="#3DDC84" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="25" cy="5" r="3" fill="#3DDC84"/>
-                <!-- Antenas derecha -->
-                <line x1="62" y1="18" x2="72" y2="8" stroke="#3DDC84" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="75" cy="5" r="3" fill="#3DDC84"/>
-                <!-- Ojos -->
-                <circle cx="45" cy="23" r="2" fill="#123b2f"/>
-                <circle cx="55" cy="23" r="2" fill="#123b2f"/>
-                <!-- Cuerpo -->
-                <rect x="32" y="38" width="36" height="48" rx="6" fill="none" stroke="#3DDC84" stroke-width="2"/>
-                <!-- Manos izquierda -->
-                <line x1="32" y1="50" x2="18" y2="50" stroke="#3DDC84" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="15" cy="50" r="3" fill="#3DDC84"/>
-                <!-- Manos derecha -->
-                <line x1="68" y1="50" x2="82" y2="50" stroke="#3DDC84" stroke-width="3" stroke-linecap="round"/>
-                <circle cx="85" cy="50" r="3" fill="#3DDC84"/>
-              </svg>
+              <img src="android.png" alt="Android" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div class="download-label">Android</div>
             <div class="download-platform">Google Play Store</div>
@@ -445,14 +431,7 @@
           <!-- iOS Card -->
           <div class="download-card" id="ios-card" data-platform="ios">
             <div class="download-icon">
-              <svg width="80" height="80" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Manzana -->
-                <path d="M50 8C50 8 45 12 42 15C40 17 38 18 35 18C28 18 22 24 22 31C22 42 28 55 50 72C72 55 78 42 78 31C78 24 72 18 65 18C62 18 60 17 58 15C55 12 50 8 50 8Z" fill="#000" stroke="#123b2f" stroke-width="1.5"/>
-                <!-- Hoja -->
-                <path d="M55 12C58 10 62 10 65 12" stroke="#3DDC84" stroke-width="2" stroke-linecap="round" fill="none"/>
-                <!-- Punto de brillo -->
-                <circle cx="35" cy="32" r="4" fill="rgba(255,255,255,0.4)"/>
-              </svg>
+              <img src="ios.png" alt="iOS" style="width: 100%; height: 100%; object-fit: contain;">
             </div>
             <div class="download-label">iOS</div>
             <div class="download-platform">Apple App Store</div>
@@ -460,45 +439,6 @@
               Descargar
             </button>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="info-section">
-      <h2>Acerca de la app</h2>
-      <p style="color: var(--muted);">
-        Open es una plataforma completa diseñada para activar comercio y servicios en tu comunidad.
-      </p>
-      <div class="info-grid">
-        <div class="info-item">
-          <strong>🛍️ Catálogos y Pedidos</strong>
-          <span>Accede a productos de aliados locales y realiza pedidos desde tu dispositivo.</span>
-        </div>
-        <div class="info-item">
-          <strong>📍 Ubicación y Cercanía</strong>
-          <span>Descubre servicios y comercios cercanos en tu barrio con geolocalización integrada.</span>
-        </div>
-        <div class="info-item">
-          <strong>🔔 Notificaciones en Tiempo Real</strong>
-          <span>Recibe actualizaciones sobre pedidos, reservas y soporte al instante.</span>
-        </div>
-        <div class="info-item">
-          <strong>💬 Soporte y Mensajería</strong>
-          <span>Comunícate directamente con aliados y recibe atención operativa rápida.</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="info-section" style="margin-top: 28px;">
-      <h2>Requisitos del dispositivo</h2>
-      <div class="info-grid">
-        <div class="info-item">
-          <strong>🤖 Android</strong>
-          <span>Android 8.0 o superior. Compatible con tablets y dispositivos móviles.</span>
-        </div>
-        <div class="info-item">
-          <strong>🍎 iOS</strong>
-          <span>iOS 12.0 o superior. Compatible con iPhone, iPad e iPod touch.</span>
         </div>
       </div>
     </section>
