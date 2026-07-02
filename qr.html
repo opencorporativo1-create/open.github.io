@@ -47,23 +47,39 @@
 
   <script>
     function detectOSAndRedirect() {
-      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      const ua = navigator.userAgent.toLowerCase();
       
-      if (/android/i.test(ua)) {
-        window.location.href = "https://play.google.com/store/apps/details?id=com.open1x.app";
-      } else if (/iPad|iPhone|iPod/.test(ua) && !window.MSStream) {
-        window.location.href = "https://apps.apple.com/co/app/open-servicios-cerca-de-ti/id6769672984";
-      } else {
-        // Si es desktop, mostrar página de opciones
-        window.location.href = "download.html";
+      console.log('User Agent:', ua);
+      
+      // Detectar Android
+      if (ua.indexOf('android') > -1) {
+        console.log('Android detectado, redirigiendo...');
+        window.location.replace("https://play.google.com/store/apps/details?id=com.open1x.app");
+        return;
       }
+      
+      // Detectar iOS con múltiples métodos
+      if (/iphone|ipad|ipod|mac os/.test(ua)) {
+        console.log('iOS detectado, redirigiendo...');
+        window.location.replace("https://apps.apple.com/co/app/open-servicios-cerca-de-ti/id6769672984");
+        return;
+      }
+      
+      // Si es desktop, ir a download.html
+      console.log('Desktop detectado, mostrando opciones...');
+      window.location.replace("download.html");
     }
 
-    // Ejecutar redirección inmediatamente al cargar
-    window.addEventListener('DOMContentLoaded', detectOSAndRedirect);
+    // Ejecutar redirección inmediatamente, antes que cualquier otra cosa
+    if (document.readyState === 'loading') {
+      detectOSAndRedirect();
+    }
     
-    // Fallback por si DOMContentLoaded no se dispara
-    setTimeout(detectOSAndRedirect, 100);
+    // También ejecutar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', detectOSAndRedirect);
+    
+    // Y con un timeout corto como fallback
+    setTimeout(detectOSAndRedirect, 50);
   </script>
 </body>
 </html>
